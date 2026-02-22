@@ -6,64 +6,75 @@
     <title>Studio Home Work | Premium Content</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        :root { --main-color: #ff0055; --bg-dark: #0a0a0a; }
         body { 
-            background: radial-gradient(circle at top, #1a1a1a, #050505); 
-            color: white; font-family: 'Cairo', sans-serif; 
+            background-color: var(--bg-dark); color: white; font-family: 'Cairo', sans-serif; 
             margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-        .header { padding: 30px; text-align: center; }
+        /* تصميم الهيدر */
+        .header { padding: 40px 20px; text-align: center; width: 100%; }
         .header h1 { 
-            font-size: 2.2rem; margin: 0; 
-            background: linear-gradient(to right, #ff0055, #ffcc00);
+            font-size: 2.8rem; margin: 0; font-weight: 900;
+            background: linear-gradient(45deg, #ff0055, #ffcc00);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 0, 85, 0.2);
         }
-        .video-container {
-            width: 90%; max-width: 500px; 
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 2px solid #333; background: #000;
-            margin-bottom: 25px;
+        /* حاوية الفيديو المبهرة */
+        .video-card {
+            width: 90%; max-width: 600px; background: #111; border-radius: 30px;
+            overflow: hidden; border: 1px solid #222; position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: 0.5s;
         }
-        video { width: 100%; display: block; }
-        .btn {
-            width: 80%; max-width: 400px; padding: 15px;
-            background: #ff0055; color: white; border: none;
-            border-radius: 12px; font-weight: bold; font-size: 1.1rem;
-            text-decoration: none; text-align: center;
-            transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 0, 85, 0.3);
+        .video-card:hover { border-color: var(--main-color); transform: translateY(-10px); }
+        
+        video { width: 100%; display: block; background: #000; outline: none; }
+
+        /* الأزرار */
+        .controls { padding: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .btn-main {
+            background: linear-gradient(45deg, var(--main-color), #ff4d00);
+            color: white; text-decoration: none; padding: 18px; border-radius: 15px;
+            font-weight: 700; text-align: center; font-size: 1.2rem;
+            box-shadow: 0 10px 20px rgba(255, 0, 85, 0.4); transition: 0.3s;
         }
-        .btn:hover { transform: scale(1.05); background: #ff2e73; }
+        .btn-main:active { transform: scale(0.95); }
+
+        /* أنيميشن */
+        .glow { animation: glow 2s infinite alternate; }
+        @keyframes glow { from { opacity: 0.8; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>STUDIO HOME WORK</h1>
-        <p style="color: #00d4ff; font-size: 0.9rem;">شاهد الفيديو الحصري الآن</p>
+        <h1 class="glow">STUDIO HOME</h1>
+        <p style="color: #666; margin-top: 10px;">PREMIUM VIDEO EXPERIENCE</p>
     </div>
 
-    <div class="video-container">
-        <video id="myVideo" controls poster="https://via.placeholder.com/500x300/000/ff0055?text=Click+to+Play">
+    <div class="video-card">
+        <video id="player" controls playsinline preload="auto">
             <source src="https://rhbqrxzippvfybmekda.supabase.co/storage/v1/object/public/videos/GET1.mp4" type="video/mp4">
-            متصفحك لا يدعم تشغيل الفيديو.
+            تحذير: متصفحك لا يدعم تشغيل الفيديو، يرجى تحديثه.
         </video>
+        
+        <div class="controls">
+            <a href="https://omg10.com/4/10637838" target="_blank" class="btn-main">📥 الحصول على المحتوى الآن</a>
+            <p style="text-align: center; color: #444; font-size: 0.8rem;">بواسطة استوديو هو ورك</p>
+        </div>
     </div>
-
-    <a href="https://omg10.com/4/10637838" target="_blank" class="btn">
-        🎁 اضغط هنا للحصول على الهدية
-    </a>
 
     <script>
-        const v = document.getElementById('myVideo');
-        v.onplay = function() {
-            if (!this.dataset.done) {
-                // فتح رابط الإعلان عند بدء التشغيل
-                window.open("https://omg10.com/4/10637838", "_blank");
-                this.dataset.done = "true";
+        const video = document.getElementById('player');
+        // نظام الإعلانات الذكي
+        video.onplay = function() {
+            if (!this.dataset.clicked) {
+                setTimeout(() => {
+                    window.open("https://omg10.com/4/10637838", "_blank");
+                }, 300);
+                this.dataset.clicked = "true";
             }
         };
     </script>
-
 </body>
 </html>
